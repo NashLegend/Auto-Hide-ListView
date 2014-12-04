@@ -132,7 +132,7 @@ public class MainActivity extends ActionBarActivity {
                     currentDirection = 0;
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if (state != AbsListView.OnScrollListener.SCROLL_STATE_IDLE && listView.getFirstVisiblePosition() > 0) {
+                    if (listView.getFirstVisiblePosition() > 0) {
                         float tmpCurrentY = event.getY();
                         if (Math.abs(tmpCurrentY - lastY) > touchSlop) {
                             currentY = tmpCurrentY;
@@ -161,8 +161,6 @@ public class MainActivity extends ActionBarActivity {
     AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {
         int lastPosition = 0;
 
-
-        //如果没有外来
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
             state = scrollState;
@@ -175,7 +173,6 @@ public class MainActivity extends ActionBarActivity {
             }
             if (firstVisibleItem > 0) {
                 if (firstVisibleItem > lastPosition && state == SCROLL_STATE_FLING) {
-                    //针对在header尚未隐藏时fling的情况
                     animateHide();
                 }
             }
