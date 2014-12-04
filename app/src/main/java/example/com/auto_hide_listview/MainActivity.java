@@ -109,7 +109,7 @@ public class MainActivity extends ActionBarActivity {
             ArrayList<Animator> animators = new ArrayList<>();
             animators.add(headerAnimator);
             animators.add(footerAnimator);
-            hideAnimatorSet.setDuration(300);
+            hideAnimatorSet.setDuration(200);
             hideAnimatorSet.playTogether(animators);
             hideAnimatorSet.start();
         }
@@ -132,9 +132,7 @@ public class MainActivity extends ActionBarActivity {
                     currentDirection = 0;
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if (listView.getFirstVisiblePosition() == 0) {
-                        animateBack();
-                    } else {
+                    if (state != AbsListView.OnScrollListener.SCROLL_STATE_IDLE && listView.getFirstVisiblePosition() > 0) {
                         float tmpCurrentY = event.getY();
                         if (Math.abs(tmpCurrentY - lastY) > touchSlop) {
                             currentY = tmpCurrentY;
@@ -158,9 +156,11 @@ public class MainActivity extends ActionBarActivity {
         }
     };
 
+    int state = AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
+
     AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {
         int lastPosition = 0;
-        int state = SCROLL_STATE_IDLE;
+
 
         //如果没有外来
         @Override
