@@ -144,6 +144,7 @@ public class MainActivity extends ActionBarActivity {
                                     animateBack();
                                 }
                             }
+                            lastY = currentY;
                         }
                     }
                     break;
