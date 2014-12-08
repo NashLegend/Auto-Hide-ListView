@@ -156,10 +156,10 @@ public class MainActivity extends ActionBarActivity {
         }
     };
 
-    int state = AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
 
     AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {
         int lastPosition = 0;
+        int state = AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
 
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
