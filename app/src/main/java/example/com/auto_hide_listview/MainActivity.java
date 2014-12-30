@@ -19,6 +19,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+/**
+ * 在AutoHideUtil里面有封装过的帮助类，一行代码搞定
+ */
 public class MainActivity extends ActionBarActivity {
 
     ListView listView;
