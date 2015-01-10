@@ -102,8 +102,8 @@ public class AutoHideUtil {
 
         View.OnTouchListener onTouchListener = new View.OnTouchListener() {
 
-            float lastY = 0f;
-            float currentY = 0f;
+            float lastY = -1f;
+            float currentY = -1f;
             int lastDirection = 0;
             int currentDirection = 0;
 
@@ -116,7 +116,10 @@ public class AutoHideUtil {
                         currentDirection = 0;
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        if (listView.getFirstVisiblePosition() > 1) {
+                        if (lastY < 0) {
++                            lastY = event.getY();
++                        }
+                        if (listView.getFirstVisiblePosition() > 0) {
                             float tmpCurrentY = event.getY();
                             if (Math.abs(tmpCurrentY - lastY) > touchSlop) {
                                 currentY = tmpCurrentY;
@@ -135,6 +138,8 @@ public class AutoHideUtil {
                     case MotionEvent.ACTION_CANCEL:
                     case MotionEvent.ACTION_UP:
                         currentDirection = 0;
+                        currentY = -1f;
++                       lastY = -1f;
                         break;
                 }
                 return false;
@@ -152,10 +157,10 @@ public class AutoHideUtil {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem == 0 || firstVisibleItem == 1) {
+                if (firstVisibleItem == 0) {
                     animateBack();
                 }
-                if (firstVisibleItem > 1) {
+                if (firstVisibleItem > 0) {
                     if (firstVisibleItem > lastPosition && state == SCROLL_STATE_FLING) {
                         animateHide();
                     }
