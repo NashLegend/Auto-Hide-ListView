@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class AutoHideUtil {
     /**
      * AutoHideUtil.applyListViewAutoHide()是一个帮助类，以快速实现MainActivity里面的滑动隐藏方法
+     * 需要用户在方法中提供要隐藏的Header和Footer
      *
      * @param context
      * @param listView     滚动的ListView
@@ -33,6 +34,9 @@ public class AutoHideUtil {
     }
 
     /**
+     * AutoHideUtil.applyListViewAutoHide()是一个帮助类，以快速实现MainActivity里面的滑动隐藏方法
+     * 不需要用户在方法中提供要隐藏的Header和Footer，具体隐藏方法要在用户在回调中实现
+     *
      * @param context
      * @param listView
      * @param headerHeight
@@ -79,11 +83,15 @@ public class AutoHideUtil {
 
             } else {
                 backAnimatorSet = new AnimatorSet();
-                ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(header, "translationY", header.getTranslationY(), 0f);
-                ObjectAnimator footerAnimator = ObjectAnimator.ofFloat(footer, "translationY", footer.getTranslationY(), 0f);
                 ArrayList<Animator> animators = new ArrayList<>();
-                animators.add(headerAnimator);
-                animators.add(footerAnimator);
+                if (header != null) {
+                    ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(header, "translationY", header.getTranslationY(), 0f);
+                    animators.add(headerAnimator);
+                }
+                if (footer != null) {
+                    ObjectAnimator footerAnimator = ObjectAnimator.ofFloat(footer, "translationY", footer.getTranslationY(), 0f);
+                    animators.add(footerAnimator);
+                }
                 backAnimatorSet.setDuration(300);
                 backAnimatorSet.playTogether(animators);
                 backAnimatorSet.start();
@@ -100,11 +108,15 @@ public class AutoHideUtil {
 
             } else {
                 hideAnimatorSet = new AnimatorSet();
-                ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(header, "translationY", header.getTranslationY(), -header.getHeight());
-                ObjectAnimator footerAnimator = ObjectAnimator.ofFloat(footer, "translationY", footer.getTranslationY(), footer.getHeight());
                 ArrayList<Animator> animators = new ArrayList<>();
-                animators.add(headerAnimator);
-                animators.add(footerAnimator);
+                if (header != null) {
+                    ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(header, "translationY", header.getTranslationY(), -header.getHeight());
+                    animators.add(headerAnimator);
+                }
+                if (footer != null) {
+                    ObjectAnimator footerAnimator = ObjectAnimator.ofFloat(footer, "translationY", footer.getTranslationY(), footer.getHeight());
+                    animators.add(footerAnimator);
+                }
                 hideAnimatorSet.setDuration(300);
                 hideAnimatorSet.playTogether(animators);
                 hideAnimatorSet.start();
