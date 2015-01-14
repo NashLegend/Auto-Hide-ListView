@@ -16,13 +16,14 @@ import java.util.ArrayList;
 
 /**
  * Created by NashLegend on 2014/12/17 0017
+ * 不要用于使用下拉拉出一个Header的下拉刷新样式
  */
 public class AutoHideUtil {
     /**
      * AutoHideUtil.applyListViewAutoHide()是一个帮助类，以快速实现MainActivity里面的滑动隐藏方法
      * 需要用户在方法中提供要隐藏的Header和Footer
      *
-     * @param context
+     * @param context      上下文
      * @param listView     滚动的ListView
      * @param header       滚动时要隐藏起来上顶部元素
      * @param footer       滚动时要隐藏起来的底部元素
@@ -37,9 +38,9 @@ public class AutoHideUtil {
      * AutoHideUtil.applyListViewAutoHide()是一个帮助类，以快速实现MainActivity里面的滑动隐藏方法
      * 不需要用户在方法中提供要隐藏的Header和Footer，具体隐藏方法要在用户在回调中实现
      *
-     * @param context
-     * @param listView
-     * @param headerHeight
+     * @param context      上下文
+     * @param listView     滚动的ListView
+     * @param headerHeight 顶部元素的高度
      */
     public static void applyListViewAutoHide(Context context, ListView listView, int headerHeight, AutoHideListener autoHideListener) {
         ListViewAutoHideToolWithCallBack tool = new ListViewAutoHideToolWithCallBack();
